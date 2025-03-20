@@ -1,1 +1,3 @@
 .DS_Store
+./dependency-management/checkneighbours/.gradle/
+./dependency-management/checkneighbours/build/
