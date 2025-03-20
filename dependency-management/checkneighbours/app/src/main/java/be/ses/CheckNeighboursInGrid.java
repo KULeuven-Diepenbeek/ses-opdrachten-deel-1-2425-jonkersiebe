@@ -1,42 +1,54 @@
 package be.ses;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CheckNeighboursInGrid {
-    /**
-     * This method takes a 1D Iterable and an element in the array and gives back an iterable containing the indexes of all neighbours with the same value as the specified element
-     * @return - Returns a 1D Iterable of ints, the Integers represent the indexes of all neighbours with the same value as the specified element on index 'indexToCheck'.
-     * @param grid - This is a 1D Iterable containing all elements of the grid. The elements are integers.
-     * @param width - Specifies the width of the grid.
-     * @param height - Specifies the height of the grid (extra for checking if 1D grid is complete given the specified width)
-     * @param indexToCheck - Specifies the index of the element which neighbours that need to be checked
-     */
     public static Iterable<Integer> getSameNeighboursIds(Iterable<Integer> grid, int width, int height, int indexToCheck) {
-        List<Integer> neighbours = new ArrayList<>();
         List<Integer> gridList = new ArrayList<>();
-        grid.forEach(gridList::add);
+        for (Integer num : grid) {
+            gridList.add(num);
+        }
 
-        int valueToCheck = gridList.get(indexToCheck);
-
+        if (indexToCheck < 0 || indexToCheck >= gridList.size()) {
+            throw new IndexOutOfBoundsException("Index out of bounds: " + indexToCheck);
+        }
+        if (width * height != gridList.size()) {
+            throw new IllegalArgumentException("Grid size does not match width * height");
+        }
+        
+        List<Integer> result = new ArrayList<>();
         int row = indexToCheck / width;
         int col = indexToCheck % width;
+        int valueToCheck = gridList.get(indexToCheck);
+     
+        int[] rowOffsets = {-1, -1, -1,  0, 0,  1, 1, 1};
+        int[] colOffsets = {-1,  0,  1, -1, 1, -1, 0, 1};
 
-        // Check neighbours (left, right, up, down)
-        int[] rowOffsets = {-1, 1, 0, 0};
-        int[] colOffsets = {0, 0, -1, 1};
-
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             int newRow = row + rowOffsets[i];
             int newCol = col + colOffsets[i];
-            int newIndex = newRow * width + newCol;
 
             if (newRow >= 0 && newRow < height && newCol >= 0 && newCol < width) {
+                int newIndex = newRow * width + newCol;
                 if (gridList.get(newIndex) == valueToCheck) {
-                    neighbours.add(newIndex);
+                    result.add(newIndex);
                 }
             }
         }
-        return neighbours;
+        return result;
+    }
+    public static void main(String[] args) {
+        List<Integer> grid = Arrays.asList(
+            0, 0, 1, 0,
+            1, 1, 0, 2,
+            2, 0, 1, 3,
+            0, 1, 1, 1
+        );
+
+        Iterable<Integer> result = CheckNeighboursInGrid.getSameNeighboursIds(grid, 4, 4, 5);
+
+        System.err.println(result);
     }
 }
