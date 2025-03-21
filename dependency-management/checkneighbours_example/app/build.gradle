@@ -11,7 +11,6 @@ plugins {
     id 'application'
 }
 
-// TODO: add everything needed so the main class builds and runs
 
 repositories {
     // Use Maven Central for resolving dependencies.
