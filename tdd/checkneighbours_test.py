@@ -1,5 +1,5 @@
 import unittest
-from tdd.checkneighbours import get_same_neighbours_ids
+from checkneighbours import get_same_neighbours_ids
 
 
 class TestFunctions(unittest.TestCase):
