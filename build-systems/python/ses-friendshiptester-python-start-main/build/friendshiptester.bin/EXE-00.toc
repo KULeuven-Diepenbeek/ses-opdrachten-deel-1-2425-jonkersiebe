@@ -184,7 +184,7 @@
  [],
  False,
  False,
- 1742373596,
+ 1742583781,
  [('run',
    '/opt/homebrew/Cellar/pyinstaller/6.12.0/libexec/lib/python3.13/site-packages/PyInstaller/bootloader/Darwin-64bit/run',
    'EXECUTABLE')],
